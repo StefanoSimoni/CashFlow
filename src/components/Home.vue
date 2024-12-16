@@ -1,7 +1,9 @@
 <template>
   <Layout>
     <template #header><Header /></template>
-    <template #resume><Resume /></template>
+    <template #resume
+      ><Resume :totalAmount="123" :amountDate="123"
+    /></template>
     <template #history><History /></template>
   </Layout>
 </template>
