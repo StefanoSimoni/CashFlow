@@ -2,6 +2,7 @@
   <main>
     <p>{{ label }}</p>
     <h1>{{ amountFormatted }}</h1>
+    <slot name="addMovement"></slot>
   </main>
 </template>
 
@@ -32,7 +33,7 @@ const label = computed(() =>
 const amount = computed(() =>
   amountDate.value ? amountDate.value : totalAmount.value
 );
-const amountFormatted = computed(() => amountFormatter.format(amount.value));
+const amountFormatted = computed(() => currencyFormatter.format(amount.value));
 </script>
 
 <style scoped>

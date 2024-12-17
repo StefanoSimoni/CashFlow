@@ -1,5 +1,41 @@
-<template></template>
+<template>
+  <ul>
+    <Movement
+      v-for="movement in movements"
+      :key="movement.id"
+      :id="movement.id"
+      :title="movement.title"
+      :description="movement.description"
+      :amount="movement.amount"
+      @remove="remove"
+    />
+  </ul>
+</template>
 
-<script setup></script>
+<script setup>
+import { toRefs } from "vue";
+import Movement from "./Movement.vue";
 
-<style scoped></style>
+const props = defineProps({
+  movements: {
+    type: Array,
+  },
+});
+const { movements } = toRefs(props);
+
+const remove = (id) => {
+  const index = movements.value.findIndex((movement) => movement.id === id);
+  movements.value.splice(index, 1);
+};
+</script>
+
+<style scoped>
+ul {
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+</style>

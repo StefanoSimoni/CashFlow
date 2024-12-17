@@ -43,6 +43,7 @@ const showHistory = ref(false);
 
 h1 {
   padding-left: 20px;
+  color: #0689b0;
 }
 
 .header {
@@ -55,11 +56,12 @@ h1 {
 .grip {
   width: 30%;
   height: 10px;
-  background-color: #0689b0;
+  background-color: #93d0e2;
   border-radius: 10px;
 }
 
 .body {
   height: 85vh;
+  padding: 20px;
 }
 </style>
