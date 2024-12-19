@@ -7,7 +7,7 @@
       :title="movement.title"
       :description="movement.description"
       :amount="movement.amount"
-      @remove="remove"
+      @removeMovement="removeMovement"
     />
   </ul>
 </template>
@@ -23,7 +23,7 @@ const props = defineProps({
 });
 const { movements } = toRefs(props);
 
-const remove = (id) => {
+const removeMovement = (id) => {
   const index = movements.value.findIndex((movement) => movement.id === id);
   movements.value.splice(index, 1);
 };

@@ -39,10 +39,10 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-const emits = defineEmits(["remove"]);
+const emits = defineEmits(["removeMovement"]);
 
 const removeMovement = (id) => {
-  emits("remove", id);
+  emits("removeMovement", id);
 };
 
 const amountFormatted = computed(() => currencyFormatter.format(amount.value));
@@ -73,5 +73,9 @@ const isPositive = computed(() => (amount.value > 0 ? "#04b500" : "red"));
   flex-direction: column;
   align-items: end;
   gap: 15px;
+}
+
+img {
+  cursor: pointer;
 }
 </style>
