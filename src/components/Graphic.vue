@@ -56,7 +56,7 @@ const amountToPixels = (amount) => {
 };
 
 const zero = computed(() => {
-  return amountToPixels(0);
+  return isNaN(amountToPixels(0)) ? 100 : amountToPixels(0);
 });
 
 const points = computed(() => {

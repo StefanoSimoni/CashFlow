@@ -6,12 +6,14 @@
         ><template #addMovement><AddMovementButton /></template
         ><template #graphic><Graphic :amounts="amounts" /></template></Resume
     ></template>
-    <template #history><History :movements="movements" /></template>
+    <template #history
+      ><History :movements="movements" @save="save"
+    /></template>
   </Layout>
 </template>
 
 <script setup>
-import { computed, provide, ref } from "vue";
+import { computed, onMounted, provide, ref } from "vue";
 import Layout from "./Layout.vue";
 import Header from "./Header.vue";
 import Resume from "./Resume.vue";
@@ -19,38 +21,7 @@ import Graphic from "./Graphic.vue";
 import AddMovementButton from "./AddMovementButton.vue";
 import History from "./History.vue";
 
-const movements = ref([
-  {
-    id: 0,
-    title: "Movement 1",
-    description: "Description for Movement 1",
-    amount: 123456,
-    date: new Date("12/10/2024"),
-  },
-  {
-    id: 1,
-    title: "Movement 2",
-    description: "Description for Movement 2",
-    amount: 123456,
-    date: new Date("12/11/2024"),
-  },
-  {
-    id: 2,
-    title: "Movement 3",
-    description: "Description for Movement 3",
-    amount: 123456,
-    date: new Date("12/12/2024"),
-  },
-  {
-    id: 3,
-    title: "Movement 4",
-    description: "Description for Movement 4",
-    amount: -123456,
-    date: new Date("12/13/2024"),
-  },
-]);
-
-provide("movements", movements);
+const movements = ref([]);
 
 const amounts = computed(() => {
   const lastDays = movements.value
@@ -68,6 +39,22 @@ const amounts = computed(() => {
     return lastAmount.reduce((sum, amount) => sum + amount, 0);
   });
 });
+
+onMounted(() => {
+  const movementsLS = JSON.parse(localStorage.getItem("movements"));
+
+  if (Array.isArray(movementsLS)) {
+    movements.value = movementsLS.map((movement) => {
+      return { ...movement, date: new Date(movement.date) };
+    });
+  }
+});
+
+const save = () => {
+  localStorage.setItem("movements", JSON.stringify(movements.value));
+};
+
+provide("movements", { movements, save });
 </script>
 
 <style scoped></style>

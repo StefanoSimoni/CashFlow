@@ -61,7 +61,7 @@ import { inject, ref } from "vue";
 
 const addMovement = ref(null);
 
-const movements = inject("movements");
+const { movements, save } = inject("movements");
 
 let title = ref("");
 let amount = ref(null);
@@ -81,6 +81,7 @@ const createMovement = () => {
     description: description.value,
     date: new Date(),
   });
+  save();
   resetForm();
 };
 
