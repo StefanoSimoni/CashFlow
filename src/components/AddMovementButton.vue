@@ -2,7 +2,8 @@
   <button @click="showModal = true">Add Movement</button>
   <teleport to="#app">
     <Modal v-show="showModal" @closeModal="showModal = false">
-      <template #default><FormAddMovement /></template></Modal
+      <template #default
+        ><FormAddMovement @closeModal="showModal = false" /></template></Modal
   ></teleport>
 </template>
 

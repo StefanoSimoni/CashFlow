@@ -1,26 +1,52 @@
 <template>
-  <form @sumbit.prevent="sumbit">
+  <form ref="addMovement" @submit.prevent="createMovement">
     <div>
       <label for="title">Title</label>
-      <input type="text" name="title" id="title" />
+      <input type="text" name="title" id="title" v-model="title" required />
     </div>
     <div>
       <label for="amount">Amount</label>
-      <input type="number" name="amount" id="amount" />
+      <input
+        type="number"
+        name="amount"
+        id="amount"
+        v-model="amount"
+        required
+      />
     </div>
     <div>
       <label for="description">Description</label>
-      <textarea name="description" id="description" rows="8"></textarea>
+      <textarea
+        name="description"
+        id="description"
+        rows="8"
+        v-model="description"
+        required
+      ></textarea>
     </div>
     <div>
       <label for="entry" class="movementType">
         Entry
-        <input type="radio" name="radio" id="entry" value="Entry" />
+        <input
+          type="radio"
+          name="radio"
+          id="entry"
+          value="Entry"
+          v-model="movementType"
+          required
+        />
         <span class="checkmark"></span>
       </label>
       <label for="spent" class="movementType">
         Spent
-        <input type="radio" name="radio" id="spent" value="Spent" />
+        <input
+          type="radio"
+          name="radio"
+          id="spent"
+          value="Spent"
+          v-model="movementType"
+          required
+        />
         <span class="checkmark"></span>
       </label>
     </div>
@@ -30,7 +56,41 @@
   </form>
 </template>
 
-<script setup></script>
+<script setup>
+import { inject, ref } from "vue";
+
+const addMovement = ref(null);
+
+const movements = inject("movements");
+
+let title = ref("");
+let amount = ref(null);
+let description = ref("");
+let movementType = ref("");
+
+const emits = defineEmits(["closeModal"]);
+
+const createMovement = () => {
+  console.log(movements.value);
+
+  emits("closeModal");
+  movements.value.push({
+    id: movements.value.length,
+    title: title.value,
+    amount: movementType.value === "Entry" ? amount.value : -amount.value,
+    description: description.value,
+    date: new Date(),
+  });
+  resetForm();
+};
+
+const resetForm = () => {
+  title.value = "";
+  amount.value = null;
+  description.value = "";
+  addMovement.value.reset();
+};
+</script>
 
 <style scoped>
 form {

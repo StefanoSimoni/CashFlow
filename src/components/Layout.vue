@@ -29,6 +29,7 @@ const showHistory = ref(false);
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  overflow-y: hidden;
 }
 
 .history {
@@ -61,7 +62,8 @@ h1 {
 }
 
 .body {
-  height: 85vh;
+  height: 70vh;
   padding: 20px;
+  overflow-y: scroll;
 }
 </style>

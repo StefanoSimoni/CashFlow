@@ -2,6 +2,7 @@
   <main>
     <p>{{ label }}</p>
     <h1>{{ amountFormatted }}</h1>
+    <slot name="graphic"></slot>
     <slot name="addMovement"></slot>
   </main>
 </template>
@@ -44,5 +45,13 @@ p {
 h1 {
   text-align: center;
   color: #04b500;
+}
+
+main {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 </style>
