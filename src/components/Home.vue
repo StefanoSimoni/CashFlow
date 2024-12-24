@@ -2,9 +2,13 @@
   <Layout>
     <template #header><Header /></template>
     <template #resume
-      ><Resume :totalAmount="123" :amountDate="123"
+      ><Resume
+        :totalAmount="totalAmount"
+        :amountDate="amountDate"
+        :labelDate="labelDate"
         ><template #addMovement><AddMovementButton /></template
-        ><template #graphic><Graphic :amounts="amounts" /></template></Resume
+        ><template #graphic
+          ><Graphic :amounts="amounts" @select="select" /></template></Resume
     ></template>
     <template #history
       ><History :movements="movements" @save="save"
@@ -40,6 +44,13 @@ const amounts = computed(() => {
   });
 });
 
+const totalAmount = computed(() =>
+  movements.value.reduce((sum, movement) => sum + movement.amount, 0)
+);
+
+const amountDate = ref(null);
+const labelDate = ref(null);
+
 onMounted(() => {
   const movementsLS = JSON.parse(localStorage.getItem("movements"));
 
@@ -49,6 +60,11 @@ onMounted(() => {
     });
   }
 });
+
+const select = (value, id) => {
+  amountDate.value = value;
+  labelDate.value = movements.value[id].date.toISOString().split("T")[0];
+};
 
 const save = () => {
   localStorage.setItem("movements", JSON.stringify(movements.value));

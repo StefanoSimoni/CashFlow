@@ -10,6 +10,7 @@
         type="number"
         name="amount"
         id="amount"
+        min="1"
         v-model="amount"
         required
       />
@@ -71,9 +72,8 @@ let movementType = ref("");
 const emits = defineEmits(["closeModal"]);
 
 const createMovement = () => {
-  console.log(movements.value);
-
   emits("closeModal");
+
   movements.value.push({
     id: movements.value.length,
     title: title.value,
@@ -81,7 +81,9 @@ const createMovement = () => {
     description: description.value,
     date: new Date(),
   });
+
   save();
+
   resetForm();
 };
 

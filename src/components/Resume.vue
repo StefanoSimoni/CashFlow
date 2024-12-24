@@ -1,7 +1,9 @@
 <template>
   <main>
-    <p>{{ label }}</p>
-    <h1>{{ amountFormatted }}</h1>
+    <div>
+      <p>{{ label }}</p>
+      <h1 :style="{ color: isPositive }">{{ amountFormatted }}</h1>
+    </div>
     <slot name="graphic"></slot>
     <slot name="addMovement"></slot>
   </main>
@@ -35,6 +37,7 @@ const amount = computed(() =>
   amountDate.value ? amountDate.value : totalAmount.value
 );
 const amountFormatted = computed(() => currencyFormatter.format(amount.value));
+const isPositive = computed(() => (amount.value > 0 ? "#04b500" : "red"));
 </script>
 
 <style scoped>
@@ -44,7 +47,6 @@ p {
 
 h1 {
   text-align: center;
-  color: #04b500;
 }
 
 main {

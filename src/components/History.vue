@@ -27,8 +27,10 @@ const emits = defineEmits(["save"]);
 
 const removeMovement = (id) => {
   const index = movements.value.findIndex((movement) => movement.id === id);
+
   movements.value.splice(index, 1);
   movements.value.forEach((movement, id) => (movement.id = id));
+
   emits("save");
 };
 </script>
